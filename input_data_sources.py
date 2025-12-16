@@ -29,7 +29,7 @@ class stlData(DataSource):
 
         for i in subdirs:
             stl_file = list(i.glob("*.stl"))
-            surface_file = list(i.glob(".vtp"))
+            surface_file = list(i.glob("*.vtp"))
             stl_files.append(stl_file)
             surface_file.append(surface_file)
 
