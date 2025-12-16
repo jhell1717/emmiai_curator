@@ -23,15 +23,19 @@ class stlData(DataSource):
         
     def get_file_list(self) -> List[str]:
         stl_files = []
-        surface_file = []
+        surface_files = []
+        volume_files = []
 
         subdirs = [p for p in self.input_dir.iterdir() if p.is_dir()]
 
         for i in subdirs:
             stl_file = list(i.glob("*.stl"))
-            surface_file = list(i.glob("*.vtp"))
+            surface_file = list(i.glob("surface*.vtp"))
+            volume_file = list(i.glob("volume*.vtp"))
             stl_files.append(stl_file)
-            surface_file.append(surface_file)
+            surface_files.append(surface_file)
+            volume_files.append(volume_file)
+
 
         filenames = [f.stem for f in subdirs]
 
