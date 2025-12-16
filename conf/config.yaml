@@ -1,0 +1,33 @@
+
+etl:
+  # Processing settings
+  processing:
+    num_processes: 1  # Use 2 processes for this small tutorial dataset // JH: Does this mean number of files, number of cores or something else?
+    args: {}
+
+  # # Validation (runs first)
+  # validator:
+  #   _target_: validator.Validator
+  #   _convert_: all
+  #   input_dir: ???  # Will be provided via command line
+  #   validation_level: "structure"  # Full validation including data content
+
+  # Source (reads HDF5 files)
+  source:
+    _target_: input_data_sources.stlData
+    _convert_: all
+    input_dir: ???  # Will be provided via command line
+
+  # Transformations (convert to Zarr format)
+  transformations:
+    converter:
+      _target_: stl_to_zarr_transformation.STLfileZARR
+      _convert_: all
+      chunk_size: 10
+      compression_level: 3
+
+  # Sink (writes Zarr stores)
+  sink:
+    _target_: zarr_data_source.ZarrDataSource
+    _convert_: all
+    output_dir: ???  # Will be provided via command line
